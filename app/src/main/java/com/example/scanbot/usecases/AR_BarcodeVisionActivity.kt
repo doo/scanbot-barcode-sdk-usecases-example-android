@@ -92,19 +92,18 @@ class AR_BarcodeVisionActivity : AppCompatActivity() {
                 valueTextView.text = barcodeItem.text
 
                 // For example we may show an image for the product with a given barcode
+                // You may implement any other logic here
                 view.findViewById<ImageView>(R.id.custom_ar_view_image).setImageResource(
-                    if (barcodeItem.text.endsWith("48")) {
-                        R.drawable.cheese
-                    } else if (barcodeItem.text.endsWith("03")) {
-                        R.drawable.nuts
-                    } else if (barcodeItem.text.endsWith("08")) {
-                        R.drawable.bottle
-                    } else if (barcodeItem.text.endsWith("76")) {
+                    if (barcodeItem.text.endsWith("2")) {
                         R.drawable.chocolate
-                    } else if (barcodeItem.text.endsWith("19")) {
-                        R.drawable.chocolate
+                    } else if (barcodeItem.text.endsWith("3")) {
+                        R.drawable.coffee
+                    } else if (barcodeItem.text.endsWith("5")) {
+                        R.drawable.apple_sauce
+                    } else if (barcodeItem.text.endsWith("6")) {
+                        R.drawable.tea
                     } else {
-                        R.drawable.bottle
+                        R.drawable.tea
                     }
                 )
 

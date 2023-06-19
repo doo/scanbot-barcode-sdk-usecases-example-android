@@ -36,7 +36,7 @@
                         android:layout_height="64dp"
                         android:layout_gravity="center"
                         android:scaleType="centerInside"
-                        android:src="@drawable/bottle" />
+                        android:src="@drawable/chocolate" />
 
                 </LinearLayout>
 
@@ -50,6 +50,7 @@
                     <TextView
                         android:id="@+id/custom_ar_view_value_text"
                         android:layout_width="match_parent"
+                        android:textColor="?colorOnPrimary"
                         android:layout_height="match_parent"
                         android:lines="1" />
                 </LinearLayout>
