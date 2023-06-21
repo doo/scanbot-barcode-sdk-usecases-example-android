@@ -70,10 +70,12 @@ class AR_FindAndPickActivity : AppCompatActivity() {
 
         barcodeScannerView.selectionOverlayController.setTextFormat(BarcodeOverlayTextFormat.NONE)
 
-
+        // Set the color of the AR overlay
         val highlightedColor = ContextCompat.getColor(this, R.color.ar_overlay_highlighted)
         barcodeScannerView.selectionOverlayController.setTextContainerHighlightedColor(highlightedColor)
         barcodeScannerView.selectionOverlayController.setPolygonHighlightedColor(highlightedColor)
+
+        // Set the delegate to highlight only the barcodes you need
         barcodeScannerView.selectionOverlayController.setBarcodeHighlightedDelegate(
             object : BarcodePolygonsView.BarcodeHighlightDelegate {
                 override fun shouldHighlight(barcodeItem: BarcodeItem): Boolean {

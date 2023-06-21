@@ -78,31 +78,38 @@ class AR_SelectScanActivity : AppCompatActivity() {
         // Disable the finder view to hide the barcode scanner viewfinder
         // It allows to locate the barcodes on the full screen
         barcodeScannerView.finderViewController.setFinderEnabled(false)
+
         // Enable the selection overlay (AR Overlay) to show the contours of detected barcodes
         barcodeScannerView.selectionOverlayController.setEnabled(true)
+
         // Hide the text box under the barcode
         barcodeScannerView.selectionOverlayController.setTextFormat(BarcodeOverlayTextFormat.CODE)
-        barcodeScannerView.selectionOverlayController.setTextContainerColor(
-            ContextCompat.getColor(this, R.color.scanbot_secondary)
-        )
 
+        // Set the colors for the AR overlay
+        val notHighlightedColor = ContextCompat.getColor(this, R.color.ar_overlay_not_highlighted)
+        barcodeScannerView.selectionOverlayController.setPolygonColor(notHighlightedColor)
+        barcodeScannerView.selectionOverlayController.setTextContainerColor(notHighlightedColor)
+
+        // Set the colors for AR overlay for highlighted barcodes
         val highlightedColor = ContextCompat.getColor(this, R.color.ar_overlay_highlighted)
-        barcodeScannerView.selectionOverlayController.setPolygonHighlightedColor(Color.GREEN)
-        barcodeScannerView.selectionOverlayController.setTextContainerHighlightedColor(Color.GREEN)
+        barcodeScannerView.selectionOverlayController.setPolygonHighlightedColor(highlightedColor)
+        barcodeScannerView.selectionOverlayController.setTextContainerHighlightedColor(highlightedColor)
 
         // Required for the AR overlay to work faster
         barcodeScannerView.viewController.barcodeDetectionInterval = 0
 
-        barcodeScannerView.selectionOverlayController.setBarcodeHighlightedDelegate(object : BarcodePolygonsView.BarcodeHighlightDelegate {
-            override fun shouldHighlight(barcodeItem: BarcodeItem): Boolean {
-                // We highlight only the barcodes that were already added to the list
-                return resultAdapter.getItems()
-                    .any {
-                        it.textWithExtension == barcodeItem.textWithExtension
-                                && it.barcodeFormat == barcodeItem.barcodeFormat
-                    }
-            }
-        })
+        // Set the delegate to highlight the barcodes that were already added to the list
+        barcodeScannerView.selectionOverlayController.setBarcodeHighlightedDelegate(
+            object : BarcodePolygonsView.BarcodeHighlightDelegate {
+                override fun shouldHighlight(barcodeItem: BarcodeItem): Boolean {
+                    // We highlight only the barcodes that were already added to the list
+                    return resultAdapter.getItems()
+                        .any {
+                            it.textWithExtension == barcodeItem.textWithExtension
+                                    && it.barcodeFormat == barcodeItem.barcodeFormat
+                        }
+                }
+            })
 
         resultView = findViewById(R.id.barcode_recycler_view)
         resultView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

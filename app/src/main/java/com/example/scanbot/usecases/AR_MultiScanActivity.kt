@@ -65,12 +65,19 @@ class AR_MultiScanActivity : AppCompatActivity() {
         // Disable the finder view to hide the barcode scanner viewfinder
         // It allows to locate the barcodes on the full screen
         barcodeScannerView.finderViewController.setFinderEnabled(false)
+
         // Enable the selection overlay (AR Overlay) to show the contours of detected barcodes
         barcodeScannerView.selectionOverlayController.setEnabled(true)
+
         // Hide the text box under the barcode
         barcodeScannerView.selectionOverlayController.setTextFormat(BarcodeOverlayTextFormat.NONE)
+
         // Required for the AR overlay to work faster
         barcodeScannerView.viewController.barcodeDetectionInterval = 0
+
+        // Set the color of the highlighted barcode contours
+        val highlightedColor = ContextCompat.getColor(this, R.color.ar_overlay_highlighted)
+        barcodeScannerView.selectionOverlayController.setPolygonColor(highlightedColor)
 
         resultView = findViewById(R.id.barcode_recycler_view)
         resultView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
