@@ -42,4 +42,7 @@ class BarcodeItemAdapter : RecyclerView.Adapter<BarcodeItemAdapter.BarcodeViewHo
     }
 
     override fun getItemCount(): Int = items.size
+
+    fun getItems(): List<BarcodeItem> = items
+
 }

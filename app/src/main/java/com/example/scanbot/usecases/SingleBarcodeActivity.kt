@@ -1,6 +1,8 @@
 package com.example.scanbot.usecases
 
 import android.Manifest
+import android.content.DialogInterface
+import android.content.DialogInterface.OnDismissListener
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.TextView
@@ -56,8 +58,11 @@ class SingleBarcodeActivity : AppCompatActivity() {
 
     private fun handleSuccess(result: FrameHandlerResult.Success<BarcodeScanningResult?>) {
         result.value?.let {
-            findViewById<TextView>(R.id.barcode_text_view).text = it.barcodeItems.joinToString(separator = "\n") { barcodeItem ->
-                "${barcodeItem.barcodeFormat}: ${barcodeItem.text}"
+            barcodeScannerView.viewController.isFrameProcessingEnabled = false
+            runOnUiThread {
+                ExampleUtils.showBarcodeResult(
+                    this@SingleBarcodeActivity, it
+                ) { barcodeScannerView.viewController.isFrameProcessingEnabled = true }
             }
             // You may also finish the scanning and proceed to the separate result screen
             // val barcodeItems = it.barcodeItems

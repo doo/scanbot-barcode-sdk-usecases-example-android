@@ -13,16 +13,17 @@ class MainActivity : AppCompatActivity() {
         val items = listOf(
             ViewType.Header("Barcode Scanning Use Cases"),
             ViewType.Option(UseCase.SINGLE_BARCODE, "Scanning Single Barcodes"),
-            ViewType.Option(UseCase.TINY_BARCODE, "Scanning Tiny Barcodes"),
-            ViewType.Option(UseCase.DISTANT_BARCODE, "Scanning Distant Barcodes"),
             ViewType.Option(UseCase.MULTIPLE_BARCODE, "Scanning Multiple Barcodes"),
             ViewType.Option(UseCase.BATCH_SCANNING, "Batch Scanning"),
+            ViewType.Option(UseCase.TINY_BARCODE, "Scanning Tiny Barcodes"),
+            ViewType.Option(UseCase.DISTANT_BARCODE, "Scanning Distant Barcodes"),
             ViewType.Header("Barcode AR Overlay Use Cases"),
             ViewType.Option(UseCase.AR_MULTI_SCAN, "AR-MultiScan"),
             ViewType.Option(UseCase.AR_SELECT_SCAN, "AR-SelectScan"),
             ViewType.Option(UseCase.AR_FIND_AND_PICK, "AR-FindAndPick"),
             ViewType.Option(UseCase.AR_SCAN_AND_COUNT, "AR-ScanAndCount"),
-            ViewType.Option(UseCase.AR_BARCODE_VISION, "AR-BarcodeVision")
+            ViewType.Option(UseCase.AR_BARCODE_VISION, "AR-BarcodeVision"),
+            ViewType.Support(),
         )
 
         val adapter = OptionAdapter(items)

@@ -2,6 +2,7 @@ package com.example.scanbot.usecases
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -14,6 +15,7 @@ import com.example.scanbot.R
 import com.example.scanbot.usecases.adapter.BarcodeItemAdapter
 import io.scanbot.sdk.barcode.entity.BarcodeItem
 import io.scanbot.sdk.barcode.ui.BarcodeOverlayTextFormat
+import io.scanbot.sdk.barcode.ui.BarcodePolygonsView
 import io.scanbot.sdk.barcode.ui.BarcodeScannerView
 import io.scanbot.sdk.barcode.ui.IBarcodeScannerViewCallback
 import io.scanbot.sdk.barcode_scanner.ScanbotBarcodeScannerSDK
@@ -24,7 +26,7 @@ import io.scanbot.sdk.ui.camera.CameraUiSettings
 class AR_SelectScanActivity : AppCompatActivity() {
     private lateinit var barcodeScannerView: BarcodeScannerView
 
-// IMPORTANT FOR THIS EXAMPLE:
+    // IMPORTANT FOR THIS EXAMPLE:
     private val resultAdapter by lazy { BarcodeItemAdapter() }
     private lateinit var resultView: RecyclerView
 // END OF IMPORTANT FOR THIS EXAMPLE:
@@ -82,11 +84,25 @@ class AR_SelectScanActivity : AppCompatActivity() {
         // Hide the text box under the barcode
         barcodeScannerView.selectionOverlayController.setTextFormat(BarcodeOverlayTextFormat.CODE)
         barcodeScannerView.selectionOverlayController.setTextContainerColor(
-            ContextCompat.getColor(this, R.color.scanbot_brand)
+            ContextCompat.getColor(this, R.color.scanbot_secondary)
         )
+
+        barcodeScannerView.selectionOverlayController.setPolygonHighlightedColor(Color.GREEN)
+        barcodeScannerView.selectionOverlayController.setTextContainerHighlightedColor(Color.GREEN)
 
         // Required for the AR overlay to work faster
         barcodeScannerView.viewController.barcodeDetectionInterval = 0
+
+        barcodeScannerView.selectionOverlayController.setBarcodeHighlightedDelegate(object : BarcodePolygonsView.BarcodeHighlightDelegate {
+            override fun shouldHighlight(barcodeItem: BarcodeItem): Boolean {
+                // We highlight only the barcodes that were already added to the list
+                return resultAdapter.getItems()
+                    .any {
+                        it.textWithExtension == barcodeItem.textWithExtension
+                                && it.barcodeFormat == barcodeItem.barcodeFormat
+                    }
+            }
+        })
 
         resultView = findViewById(R.id.barcode_recycler_view)
         resultView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

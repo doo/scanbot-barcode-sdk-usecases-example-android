@@ -8,7 +8,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.scanbot"
+        applicationId "io.scanbot.barcodesdkusecases"
         minSdk 22
         targetSdk 33
         versionCode 1

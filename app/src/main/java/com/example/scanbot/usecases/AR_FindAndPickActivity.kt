@@ -83,7 +83,7 @@ class AR_FindAndPickActivity : AppCompatActivity() {
                     // We highlight only QR codes, you can change this logic
                     return barcodeItem.barcodeFormat == BarcodeFormat.QR_CODE
                     // for example:
-                    // return barcodeItem.text == "1234567890"
+                    // return barcodeItem.text.endsWith("5")
                     // or
                     // return barcodeItem.text == expectedText (which you can get from the user)
                 }

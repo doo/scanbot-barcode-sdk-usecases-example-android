@@ -8,8 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.scanbot.ExampleUtils
 import com.example.scanbot.R
+import com.example.scanbot.usecases.adapter.BarcodeItemAdapter
 import io.scanbot.sdk.barcode.entity.BarcodeScanningResult
 import io.scanbot.sdk.barcode.ui.BarcodeOverlayTextFormat
 import io.scanbot.sdk.barcode.ui.BarcodeScannerView
@@ -22,10 +25,15 @@ import io.scanbot.sdk.ui.camera.CameraUiSettings
 class AR_MultiScanActivity : AppCompatActivity() {
     private lateinit var barcodeScannerView: BarcodeScannerView
 
+// IMPORTANT FOR THIS EXAMPLE:
+    private val resultAdapter by lazy { BarcodeItemAdapter() }
+    private lateinit var resultView: RecyclerView
+// END OF IMPORTANT FOR THIS EXAMPLE:
+
     override fun onCreate(savedInstanceState: Bundle?) {
         supportRequestWindowFeature(WindowCompat.FEATURE_ACTION_BAR_OVERLAY)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_barcode_scanner_view)
+        setContentView(R.layout.activity_barcode_scanner_recycler_view)
 
         barcodeScannerView = findViewById(R.id.barcode_scanner_view)
 
@@ -64,19 +72,22 @@ class AR_MultiScanActivity : AppCompatActivity() {
         barcodeScannerView.selectionOverlayController.setTextFormat(BarcodeOverlayTextFormat.NONE)
         // Required for the AR overlay to work faster
         barcodeScannerView.viewController.barcodeDetectionInterval = 0
+
+        resultView = findViewById(R.id.barcode_recycler_view)
+        resultView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        resultView.adapter = resultAdapter
 // END OF IMPORTANT FOR THIS EXAMPLE:
     }
 
     private fun handleSuccess(result: FrameHandlerResult.Success<BarcodeScanningResult?>) {
         result.value?.let {
-            findViewById<TextView>(R.id.barcode_text_view).text = it.barcodeItems.joinToString(separator = "\n") { barcodeItem ->
-                "${barcodeItem.barcodeFormat}: ${barcodeItem.text}"
+// IMPORTANT FOR THIS EXAMPLE:
+            // We need to add the barcode items to the adapter on the main thread
+            barcodeScannerView.post {
+                resultAdapter.addBarcodeItems(it.barcodeItems)
+                resultView.scrollToPosition(0)
             }
-            // You may also finish the scanning and proceed to the separate result screen
-            // val barcodeItems = it.barcodeItems
-            // val intent = Intent()
-            // intent.putExtra("BARCODES_ARG", barcodeItems.toTypedArray())
-            // finish()
+// END OF IMPORTANT FOR THIS EXAMPLE:        }
         }
     }
 
