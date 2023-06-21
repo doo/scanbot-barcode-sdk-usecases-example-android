@@ -8,6 +8,7 @@ enum class UseCase(val activityClass: KClass<out Activity>) {
     SINGLE_BARCODE(SingleBarcodeActivity::class),
     TINY_BARCODE(TinyBarcodeActivity::class),
     DISTANT_BARCODE(DistantBarcodeActivity::class),
+    DETECTION_ON_THE_IMAGE(DetectionOnTheImageActivity::class),
     MULTIPLE_BARCODE(MultipleBarcodeActivity::class),
     BATCH_SCANNING(BatchScanningActivity::class),
     AR_MULTI_SCAN(AR_MultiScanActivity::class),

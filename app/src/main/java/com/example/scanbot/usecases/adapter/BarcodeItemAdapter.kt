@@ -44,5 +44,9 @@ class BarcodeItemAdapter : RecyclerView.Adapter<BarcodeItemAdapter.BarcodeViewHo
     override fun getItemCount(): Int = items.size
 
     fun getItems(): List<BarcodeItem> = items
-
+    fun setBarcodeItems(barcodeItems: List<BarcodeItem>) {
+        this.items.clear()
+        this.items.addAll(barcodeItems)
+        notifyDataSetChanged()
+    }
 }

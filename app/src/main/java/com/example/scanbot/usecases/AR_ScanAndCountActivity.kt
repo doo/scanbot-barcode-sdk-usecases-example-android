@@ -20,7 +20,6 @@ class AR_ScanAndCountActivity : AppCompatActivity() {
     private lateinit var barcodeScanAndCountView: BarcodeScanAndCountView
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportRequestWindowFeature(WindowCompat.FEATURE_ACTION_BAR_OVERLAY)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_barcode_scan_and_count)
 

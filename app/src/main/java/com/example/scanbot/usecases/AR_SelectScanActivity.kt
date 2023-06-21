@@ -32,7 +32,6 @@ class AR_SelectScanActivity : AppCompatActivity() {
 // END OF IMPORTANT FOR THIS EXAMPLE:
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportRequestWindowFeature(WindowCompat.FEATURE_ACTION_BAR_OVERLAY)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_barcode_scanner_recycler_view)
 
@@ -87,6 +86,7 @@ class AR_SelectScanActivity : AppCompatActivity() {
             ContextCompat.getColor(this, R.color.scanbot_secondary)
         )
 
+        val highlightedColor = ContextCompat.getColor(this, R.color.ar_overlay_highlighted)
         barcodeScannerView.selectionOverlayController.setPolygonHighlightedColor(Color.GREEN)
         barcodeScannerView.selectionOverlayController.setTextContainerHighlightedColor(Color.GREEN)
 

@@ -5,4 +5,6 @@
     <color name="scanbot_secondary">#FFFFEDED</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="ar_overlay_highlighted">#55BB77</color>
+    <color name="ar_overlay_not_highlighted">#FFBB33</color>
 </resources>

@@ -30,7 +30,6 @@ class MultipleBarcodeActivity : AppCompatActivity() {
 // END OF IMPORTANT FOR THIS EXAMPLE:
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportRequestWindowFeature(WindowCompat.FEATURE_ACTION_BAR_OVERLAY)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_barcode_scanner_recycler_view)
 
