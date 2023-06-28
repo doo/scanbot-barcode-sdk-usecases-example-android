@@ -73,17 +73,17 @@ class MultipleBarcodeActivity : AppCompatActivity() {
 // END OF IMPORTANT FOR THIS EXAMPLE:
     }
 
+// IMPORTANT FOR THIS EXAMPLE:
     private fun handleSuccess(result: FrameHandlerResult.Success<BarcodeScanningResult?>) {
         result.value?.let {
-// IMPORTANT FOR THIS EXAMPLE:
             // We need to add the barcode items to the adapter on the main thread
             barcodeScannerView.post {
                 resultAdapter.addBarcodeItems(it.barcodeItems)
                 resultView.scrollToPosition(0)
             }
-// END OF IMPORTANT FOR THIS EXAMPLE:        }
         }
     }
+// END OF IMPORTANT FOR THIS EXAMPLE:        
 
     override fun onResume() {
         super.onResume()
