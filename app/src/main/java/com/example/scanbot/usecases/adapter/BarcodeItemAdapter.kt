@@ -33,7 +33,9 @@ class BarcodeItemAdapter : RecyclerView.Adapter<BarcodeItemAdapter.BarcodeViewHo
         // lets check duplicates
         items.forEach { item ->
             var insertedCount = 0
-            if (!this.items.any { it.textWithExtension == item.textWithExtension }) {
+            if (this.items.none { it.textWithExtension == item.textWithExtension
+                        && it.barcodeFormat == item.barcodeFormat }
+            ) {
                 this.items.add(0, item)
                 insertedCount += 1
             }
