@@ -79,6 +79,8 @@ class DetectionOnTheImageActivity : AppCompatActivity() {
             runOnUiThread {
                 resultAdapter.setBarcodeItems(it.barcodeItems)
             }
+        } ?: runOnUiThread {
+            Toast.makeText(this, "No barcodes detected", Toast.LENGTH_SHORT).show()
         }
     }
 
