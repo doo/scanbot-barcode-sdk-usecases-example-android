@@ -22,55 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".usecases.SingleBarcodeActivity"
-            android:label="Scanning Single Barcodes"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".usecases.TinyBarcodeActivity"
-            android:label="Scanning Tiny Barcodes"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".usecases.DistantBarcodeActivity"
-            android:label="Scanning Distant Barcodes"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".usecases.MultipleBarcodeActivity"
-            android:label="Scanning Multiple Barcodes"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".usecases.BatchScanningActivity"
-            android:label="Batch Scanning"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".usecases.AR_MultiScanActivity"
-            android:label="AR-MultiScan"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".usecases.AR_SelectScanActivity"
-            android:label="AR-SelectScan"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".usecases.AR_FindAndPickActivity"
             android:label="AR-FindAndPick"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".usecases.AR_ScanAndCountActivity"
-            android:label="AR-ScanAndCount"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".usecases.AR_BarcodeVisionActivity"
-            android:label="AR-BarcodeVision"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
