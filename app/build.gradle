@@ -32,7 +32,7 @@ android {
     }
 }
 
-def scanbotBarcodeSdkVersion = "3.7.0"
+def scanbotBarcodeSdkVersion = "4.0.1"
 
 dependencies {
     implementation "io.scanbot:scanbot-barcode-scanner-sdk:$scanbotBarcodeSdkVersion"

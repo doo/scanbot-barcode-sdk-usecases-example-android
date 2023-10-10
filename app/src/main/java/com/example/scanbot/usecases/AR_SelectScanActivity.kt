@@ -82,18 +82,36 @@ class AR_SelectScanActivity : AppCompatActivity() {
         // Enable the selection overlay (AR Overlay) to show the contours of detected barcodes
         barcodeScannerView.selectionOverlayController.setEnabled(true)
 
-        // Hide the text box under the barcode
-        barcodeScannerView.selectionOverlayController.setTextFormat(BarcodeOverlayTextFormat.CODE)
-
         // Set the colors for the AR overlay
         val notHighlightedColor = ContextCompat.getColor(this, R.color.ar_overlay_not_highlighted)
-        barcodeScannerView.selectionOverlayController.setPolygonColor(notHighlightedColor)
-        barcodeScannerView.selectionOverlayController.setTextContainerColor(notHighlightedColor)
 
         // Set the colors for AR overlay for highlighted barcodes
         val highlightedColor = ContextCompat.getColor(this, R.color.ar_overlay_highlighted)
-        barcodeScannerView.selectionOverlayController.setPolygonHighlightedColor(highlightedColor)
-        barcodeScannerView.selectionOverlayController.setTextContainerHighlightedColor(highlightedColor)
+
+        barcodeScannerView.selectionOverlayController.setBarcodeAppearanceDelegate(object :
+            BarcodePolygonsView.BarcodeAppearanceDelegate {
+            override fun getPolygonStyle(
+                defaultStyle: BarcodePolygonsView.BarcodePolygonStyle,
+                barcodeItem: BarcodeItem
+            ): BarcodePolygonsView.BarcodePolygonStyle {
+                return defaultStyle.copy(
+                    strokeHighlightedColor = highlightedColor,
+                    strokeColor = notHighlightedColor,
+                )
+            }
+
+            override fun getTextViewStyle(
+                defaultStyle: BarcodePolygonsView.BarcodeTextViewStyle,
+                barcodeItem: BarcodeItem
+            ): BarcodePolygonsView.BarcodeTextViewStyle {
+                return defaultStyle.copy(
+                    // Show text with barcode type
+                    textFormat = BarcodeOverlayTextFormat.CODE,
+                    textContainerHighlightedColor = highlightedColor,
+                    textContainerColor = notHighlightedColor,
+                )
+            }
+        })
 
         // Required for the AR overlay to work faster
         barcodeScannerView.viewController.barcodeDetectionInterval = 0
