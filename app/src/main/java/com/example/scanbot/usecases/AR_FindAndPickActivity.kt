@@ -68,12 +68,30 @@ class AR_FindAndPickActivity : AppCompatActivity() {
         // Enable the selection overlay (AR Overlay) to show the contours of detected barcodes
         barcodeScannerView.selectionOverlayController.setEnabled(true)
 
-        barcodeScannerView.selectionOverlayController.setTextFormat(BarcodeOverlayTextFormat.NONE)
 
         // Set the color of the AR overlay
         val highlightedColor = ContextCompat.getColor(this, R.color.ar_overlay_highlighted)
-        barcodeScannerView.selectionOverlayController.setTextContainerHighlightedColor(highlightedColor)
-        barcodeScannerView.selectionOverlayController.setPolygonHighlightedColor(highlightedColor)
+        barcodeScannerView.selectionOverlayController.setBarcodeAppearanceDelegate(object :
+            BarcodePolygonsView.BarcodeAppearanceDelegate {
+            override fun getPolygonStyle(
+                defaultStyle: BarcodePolygonsView.BarcodePolygonStyle,
+                barcodeItem: BarcodeItem
+            ): BarcodePolygonsView.BarcodePolygonStyle {
+                return defaultStyle.copy(
+                    strokeHighlightedColor = highlightedColor,
+                )
+            }
+
+            override fun getTextViewStyle(
+                defaultStyle: BarcodePolygonsView.BarcodeTextViewStyle,
+                barcodeItem: BarcodeItem
+            ): BarcodePolygonsView.BarcodeTextViewStyle {
+                return defaultStyle.copy(
+                    // Hide the text box under the barcode
+                    textFormat = BarcodeOverlayTextFormat.NONE,
+                )
+            }
+        })
 
         // Set the delegate to highlight only the barcodes you need
         barcodeScannerView.selectionOverlayController.setBarcodeHighlightedDelegate(

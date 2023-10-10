@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.scanbot.ExampleUtils
 import com.example.scanbot.R
 import com.example.scanbot.usecases.adapter.BarcodeItemAdapter
+import io.scanbot.sdk.barcode.entity.BarcodeItem
 import io.scanbot.sdk.barcode.entity.BarcodeScanningResult
 import io.scanbot.sdk.barcode.ui.BarcodeOverlayTextFormat
+import io.scanbot.sdk.barcode.ui.BarcodePolygonsView
 import io.scanbot.sdk.barcode.ui.BarcodeScannerView
 import io.scanbot.sdk.barcode.ui.IBarcodeScannerViewCallback
 import io.scanbot.sdk.barcode_scanner.ScanbotBarcodeScannerSDK
@@ -69,15 +71,35 @@ class AR_MultiScanActivity : AppCompatActivity() {
         // Enable the selection overlay (AR Overlay) to show the contours of detected barcodes
         barcodeScannerView.selectionOverlayController.setEnabled(true)
 
-        // Hide the text box under the barcode
-        barcodeScannerView.selectionOverlayController.setTextFormat(BarcodeOverlayTextFormat.NONE)
-
         // Required for the AR overlay to work faster
         barcodeScannerView.viewController.barcodeDetectionInterval = 0
 
         // Set the color of the highlighted barcode contours
         val highlightedColor = ContextCompat.getColor(this, R.color.ar_overlay_highlighted)
-        barcodeScannerView.selectionOverlayController.setPolygonColor(highlightedColor)
+
+        barcodeScannerView.selectionOverlayController.setBarcodeAppearanceDelegate(object :
+            BarcodePolygonsView.BarcodeAppearanceDelegate {
+            override fun getPolygonStyle(
+                defaultStyle: BarcodePolygonsView.BarcodePolygonStyle,
+                barcodeItem: BarcodeItem
+            ): BarcodePolygonsView.BarcodePolygonStyle {
+                return defaultStyle.copy(
+                    // Set the color of the highlighted barcode contours
+                    strokeColor = highlightedColor,
+                    fillColor = highlightedColor,
+                )
+            }
+
+            override fun getTextViewStyle(
+                defaultStyle: BarcodePolygonsView.BarcodeTextViewStyle,
+                barcodeItem: BarcodeItem
+            ): BarcodePolygonsView.BarcodeTextViewStyle {
+                return defaultStyle.copy(
+                    // Hide the text box under the barcode
+                    textFormat = BarcodeOverlayTextFormat.NONE,
+                )
+            }
+        })
 
         resultView = findViewById(R.id.barcode_recycler_view)
         resultView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
