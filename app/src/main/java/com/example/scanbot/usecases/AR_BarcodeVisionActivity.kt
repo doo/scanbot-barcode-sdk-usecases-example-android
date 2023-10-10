@@ -73,9 +73,23 @@ class AR_BarcodeVisionActivity : AppCompatActivity() {
         // Enable the selection overlay (AR Overlay) to show the contours of detected barcodes
         barcodeScannerView.selectionOverlayController.setEnabled(true)
 
-        // We don't need the contour of the barcode to be displayed
-        barcodeScannerView.selectionOverlayController.setPolygonColor(Color.TRANSPARENT)
+        barcodeScannerView.selectionOverlayController.setBarcodeAppearanceDelegate(object:BarcodePolygonsView.BarcodeAppearanceDelegate{
+            override fun getPolygonStyle(
+                defaultStyle: BarcodePolygonsView.BarcodePolygonStyle,
+                barcodeItem: BarcodeItem
+            ): BarcodePolygonsView.BarcodePolygonStyle {
+                // We don't need the contour of the barcode to be displayed
+                return defaultStyle.copy(drawPolygon = false)
+            }
 
+            override fun getTextViewStyle(
+                defaultStyle: BarcodePolygonsView.BarcodeTextViewStyle,
+                barcodeItem: BarcodeItem
+            ): BarcodePolygonsView.BarcodeTextViewStyle {
+               return defaultStyle
+            }
+
+        })
         // In this callback we define a factory for the Overlay view
         barcodeScannerView.selectionOverlayController.setBarcodeItemViewFactory(object : BarcodePolygonsView.BarcodeItemViewFactory {
             override fun createView(): View {
