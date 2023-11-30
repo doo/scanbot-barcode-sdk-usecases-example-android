@@ -45,8 +45,8 @@ class DistantBarcodeActivity : AppCompatActivity() {
             }, object : IBarcodeScannerViewCallback {
                 override fun onCameraOpen() {
 // IMPORTANT FOR THIS EXAMPLE:
-                    // Set the optical zoom level to 1.0f to allow scanning barcodes from a distance
-                    barcodeScannerView.cameraConfiguration.setOpticalZoomLevel(1.0f)
+                    // Set the optical zoom level to 30x to allow scanning barcodes from a distance
+                    barcodeScannerView.cameraConfiguration.setPhysicalZoomRatio(30.0f)
 // END OF IMPORTANT FOR THIS EXAMPLE:
                 }
 
