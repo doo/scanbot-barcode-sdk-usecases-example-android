@@ -7,7 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.scanbot.R
-import io.scanbot.sdk.barcode.entity.BarcodeItem
+import io.scanbot.sdk.barcode.BarcodeItem
+import io.scanbot.sdk.barcode.entity.textWithExtension
 
 class BarcodeItemAdapter : RecyclerView.Adapter<BarcodeItemAdapter.BarcodeViewHolder>() {
     private val items: MutableList<BarcodeItem> = mutableListOf()
@@ -25,8 +26,8 @@ class BarcodeItemAdapter : RecyclerView.Adapter<BarcodeItemAdapter.BarcodeViewHo
     override fun onBindViewHolder(holder: BarcodeViewHolder, position: Int) {
         val item = items.get(position)
         holder.text.text = item.textWithExtension
-        holder.barcodeType.text = item.barcodeFormat.name
-        holder.image.setImageBitmap(item.image)
+        holder.barcodeType.text = item.format.name
+        holder.image.setImageBitmap(item.sourceImage?.toBitmap())
     }
 
     fun addBarcodeItems(items: List<BarcodeItem>) {
@@ -34,7 +35,7 @@ class BarcodeItemAdapter : RecyclerView.Adapter<BarcodeItemAdapter.BarcodeViewHo
         items.forEach { item ->
             var insertedCount = 0
             if (this.items.none { it.textWithExtension == item.textWithExtension
-                        && it.barcodeFormat == item.barcodeFormat }
+                        && it.format == item.format }
             ) {
                 this.items.add(0, item)
                 insertedCount += 1

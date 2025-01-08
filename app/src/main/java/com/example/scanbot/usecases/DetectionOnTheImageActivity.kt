@@ -17,13 +17,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.scanbot.ExampleUtils
 import com.example.scanbot.R
 import com.example.scanbot.usecases.adapter.BarcodeItemAdapter
-import io.scanbot.sdk.barcode.ScanbotBarcodeDetector
+import io.scanbot.sdk.barcode.BarcodeScanner
 import io.scanbot.sdk.barcode_scanner.ScanbotBarcodeScannerSDK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-// This activity demonstrates how to detect barcodes on an image
+// This activity demonstrates how to scan barcodes on an image
 class DetectionOnTheImageActivity : AppCompatActivity() {
     private lateinit var scanbotBarcodeScannerSDK: ScanbotBarcodeScannerSDK
 
@@ -38,12 +37,12 @@ class DetectionOnTheImageActivity : AppCompatActivity() {
 
         scanbotBarcodeScannerSDK = ScanbotBarcodeScannerSDK(this)
 
-        // Create a barcode detector instance
-        val barcodeDetector = scanbotBarcodeScannerSDK.createBarcodeDetector()
-        barcodeDetector.modifyConfig {
+        // Create a barcode scanner instance
+        val barcodeScanner = scanbotBarcodeScannerSDK.createBarcodeScanner()
+        barcodeScanner.setConfigurations(
             // Specify the barcode format you want to scan
-            // setBarcodeFormats(listOf(BarcodeFormat.QR_CODE))
-        }
+            // barcodeFormats = (listOf(BarcodeFormat.QR_CODE))
+        )
 
         findViewById<Button>(R.id.import_image_button).setOnClickListener {
             galleryImageLauncher.launch(Unit)
@@ -57,7 +56,7 @@ class DetectionOnTheImageActivity : AppCompatActivity() {
             // Process the selected image on a background thread
             lifecycleScope.launch(Dispatchers.Default) {
                 resultEntity?.let { bitmap ->
-                    processImage(barcodeDetector, bitmap)
+                    processImage(barcodeScanner, bitmap)
                 }
             }
         }
@@ -68,16 +67,16 @@ class DetectionOnTheImageActivity : AppCompatActivity() {
     }
 
     private fun processImage(
-        barcodeDetector: ScanbotBarcodeDetector,
+        barcodeScanner: BarcodeScanner,
         bitmap: Bitmap
     ) {
         if (!scanbotBarcodeScannerSDK.licenseInfo.isValid) {
             ExampleUtils.showLicenseExpiredToastAndExit(this@DetectionOnTheImageActivity)
             return
         }
-        barcodeDetector.detectFromBitmap(bitmap, 0)?.let {
+        barcodeScanner.scanFromBitmap(bitmap, 0)?.let {
             runOnUiThread {
-                resultAdapter.setBarcodeItems(it.barcodeItems)
+                resultAdapter.setBarcodeItems(it.barcodes)
             }
         } ?: runOnUiThread {
             Toast.makeText(this, "No barcodes detected", Toast.LENGTH_SHORT).show()

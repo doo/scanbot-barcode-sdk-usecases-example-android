@@ -8,11 +8,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import com.example.scanbot.ExampleUtils
 import com.example.scanbot.R
-import io.scanbot.sdk.barcode.entity.BarcodeItem
+import io.scanbot.sdk.barcode.BarcodeFormat
+import io.scanbot.sdk.barcode.BarcodeItem
 import io.scanbot.sdk.barcode.ui.*
 import io.scanbot.sdk.barcode_scanner.ScanbotBarcodeScannerSDK
 
@@ -25,18 +25,18 @@ class AR_ScanAndCountActivity : AppCompatActivity() {
 
         barcodeScanAndCountView = findViewById(R.id.barcode_scanner_view)
 
-        val barcodeDetector = ScanbotBarcodeScannerSDK(this).createBarcodeDetector()
-        barcodeDetector.modifyConfig {
+        val barcodeScanner = ScanbotBarcodeScannerSDK(this).createBarcodeScanner()
+        barcodeScanner.setConfigurations(
             // Specify the barcode format you want to scan
-            // setBarcodeFormats(listOf(BarcodeFormat.QR_CODE))
-        }
+            // barcodeFormats = (listOf(BarcodeFormat.QR_CODE))
+        )
 
         val scanAndCountButton = findViewById<Button>(R.id.button_scan_and_count)
         val continueScanningButton = findViewById<Button>(R.id.button_continue_scanning)
 
         barcodeScanAndCountView.apply {
             initCamera()
-            initDetectionBehavior(barcodeDetector, object : IBarcodeScanCountViewCallback {
+            initScanningBehavior(barcodeScanner, object : IBarcodeScanCountViewCallback {
                 override fun onLicenseError() {
                     ExampleUtils.showLicenseExpiredToastAndExit(this@AR_ScanAndCountActivity)
                 }

@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.scanbot.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import io.scanbot.sdk.barcode.entity.BarcodeItem
+import io.scanbot.sdk.barcode.BarcodeItem
 
 class ResultDialogFragment : BottomSheetDialogFragment() {
     // In production app it is not recommended to use this way of handling a callback from a dialog.
@@ -48,7 +48,7 @@ class ResultDialogFragment : BottomSheetDialogFragment() {
 
         arguments?.let { args ->
             args.getParcelable<BarcodeItem>(ARG_BARCODE_ITEM)?.let { barcodeItem ->
-                imageView.setImageBitmap(barcodeItem.image)
+                imageView.setImageBitmap(barcodeItem.sourceImage?.toBitmap())
                 textView.text = barcodeItem.text
             }
         }

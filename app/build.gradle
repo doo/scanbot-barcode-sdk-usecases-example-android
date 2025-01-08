@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.example.scanbot'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "io.scanbot.barcodesdkusecases"
         minSdk 22
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -32,7 +32,7 @@ android {
     }
 }
 
-def scanbotBarcodeSdkVersion = "5.2.0"
+def scanbotBarcodeSdkVersion = "7.0.0.26-STAGING-SNAPSHOT"
 
 dependencies {
     implementation "io.scanbot:scanbot-barcode-scanner-sdk:$scanbotBarcodeSdkVersion"

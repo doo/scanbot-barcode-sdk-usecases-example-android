@@ -3,16 +3,16 @@ package com.example.scanbot.usecases
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.scanbot.ExampleUtils
 import com.example.scanbot.R
 import com.example.scanbot.usecases.adapter.BarcodeItemAdapter
+import io.scanbot.sdk.barcode.BarcodeItem
+import io.scanbot.sdk.barcode.BarcodeScannerResult
 import io.scanbot.sdk.barcode.entity.BarcodeScanningResult
 import io.scanbot.sdk.barcode.ui.BarcodeScannerView
 import io.scanbot.sdk.barcode.ui.IBarcodeScannerViewCallback
@@ -35,15 +35,15 @@ class MultipleBarcodeActivity : AppCompatActivity() {
 
         barcodeScannerView = findViewById(R.id.barcode_scanner_view)
 
-        val barcodeDetector = ScanbotBarcodeScannerSDK(this).createBarcodeDetector()
-        barcodeDetector.modifyConfig {
+        val barcodeScanner = ScanbotBarcodeScannerSDK(this).createBarcodeScanner()
+        barcodeScanner.setConfigurations(
             // Specify the barcode format you want to scan
-            // setBarcodeFormats(listOf(BarcodeFormat.QR_CODE))
-        }
+            // barcodeFormats = (listOf(BarcodeFormat.QR_CODE))
+        )
 
         barcodeScannerView.apply {
             initCamera(CameraUiSettings(true))
-            initDetectionBehavior(barcodeDetector, { result ->
+            initScanningBehavior(barcodeScanner, { result ->
                 if (result is FrameHandlerResult.Success) {
                     handleSuccess(result)
                 } else {
@@ -57,6 +57,10 @@ class MultipleBarcodeActivity : AppCompatActivity() {
                 override fun onPictureTaken(image: ByteArray, captureInfo: CaptureInfo) {
                     // we don't need full size pictures in this example
                 }
+
+                override fun onSelectionOverlayBarcodeClicked(barcodeItem: BarcodeItem) {
+                    // handle the barcode item here
+                }
             })
         }
 
@@ -65,7 +69,7 @@ class MultipleBarcodeActivity : AppCompatActivity() {
         // It allows to locate the barcodes on the full screen
         barcodeScannerView.finderViewController.setFinderEnabled(false)
         // Recommended for Multi-Scan approach
-        barcodeScannerView.viewController.barcodeDetectionInterval = 0
+        barcodeScannerView.viewController.barcodeScanningInterval = 0
 
         resultView = findViewById(R.id.barcode_recycler_view)
         resultView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -74,11 +78,11 @@ class MultipleBarcodeActivity : AppCompatActivity() {
     }
 
 // IMPORTANT FOR THIS EXAMPLE:
-    private fun handleSuccess(result: FrameHandlerResult.Success<BarcodeScanningResult?>) {
+    private fun handleSuccess(result: FrameHandlerResult.Success<BarcodeScannerResult?>) {
         result.value?.let {
             // We need to add the barcode items to the adapter on the main thread
             barcodeScannerView.post {
-                resultAdapter.addBarcodeItems(it.barcodeItems)
+                resultAdapter.addBarcodeItems(it.barcodes)
                 resultView.scrollToPosition(0)
             }
         }
