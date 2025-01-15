@@ -17,6 +17,7 @@ import io.scanbot.sdk.barcode.ui.*
 import io.scanbot.sdk.barcode_scanner.ScanbotBarcodeScannerSDK
 
 class AR_ScanAndCountActivity : AppCompatActivity() {
+    // @Tag("AR-ScanAndCount")
     private lateinit var barcodeScanAndCountView: BarcodeScanAndCountView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +75,7 @@ class AR_ScanAndCountActivity : AppCompatActivity() {
             continueScanningButton.isVisible = false
             scanAndCountButton.isVisible = true
         }
+        // @EndTag("AR-ScanAndCount")
     }
 
     override fun onResume() {

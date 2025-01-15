@@ -58,11 +58,11 @@ class TinyBarcodeActivity : AppCompatActivity() {
             })
         }
 
-// IMPORTANT FOR THIS EXAMPLE:
+        // @Tag("Scanning tiny barcodes")
         // Lock the focus distance to the minimal possible value to scan tiny barcodes
         // Should be called in onCreate:
         barcodeScannerView.cameraConfiguration.lockMinFocusDistance(true)
-// END OF IMPORTANT FOR THIS EXAMPLE:
+        // @EndTag("Scanning tiny barcodes")
     }
 
     private fun handleSuccess(result: FrameHandlerResult.Success<BarcodeScannerResult?>) {

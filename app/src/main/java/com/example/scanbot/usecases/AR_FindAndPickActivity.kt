@@ -59,7 +59,7 @@ class AR_FindAndPickActivity : AppCompatActivity() {
             })
         }
 
-// IMPORTANT FOR THIS EXAMPLE:
+        // @Tag("AR-FindAndPick")
         // Required for the AR overlay to work faster
         barcodeScannerView.viewController.barcodeScanningInterval = 0
 
@@ -108,7 +108,7 @@ class AR_FindAndPickActivity : AppCompatActivity() {
                 }
             }
         )
-// END OF IMPORTANT FOR THIS EXAMPLE:
+        // @EndTag("AR-FindAndPick")
     }
 
     override fun onResume() {

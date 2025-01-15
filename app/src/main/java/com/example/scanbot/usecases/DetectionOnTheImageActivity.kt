@@ -35,6 +35,7 @@ class DetectionOnTheImageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detection_on_the_image)
 
+        // @Tag("Detecting barcodes on still images")
         scanbotBarcodeScannerSDK = ScanbotBarcodeScannerSDK(this)
 
         // Create a barcode scanner instance
@@ -60,12 +61,14 @@ class DetectionOnTheImageActivity : AppCompatActivity() {
                 }
             }
         }
+        // @EndTag("Detecting barcodes on still images")
 
         resultView = findViewById(R.id.barcode_recycler_view)
         resultView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         resultView.adapter = resultAdapter
     }
 
+    // @Tag("Import and process image")
     private fun processImage(
         barcodeScanner: BarcodeScanner,
         bitmap: Bitmap
@@ -111,4 +114,5 @@ class DetectionOnTheImageActivity : AppCompatActivity() {
             return MediaStore.Images.Media.getBitmap(context.contentResolver, imageUri)
         }
     }
+    // @EndTag("Import and process image")
 }

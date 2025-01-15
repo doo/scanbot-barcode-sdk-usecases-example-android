@@ -66,7 +66,7 @@ class AR_MultiScanActivity : AppCompatActivity() {
             })
         }
 
-// IMPORTANT FOR THIS EXAMPLE:
+        // @Tag("AR-MultiScan")
         // Disable the finder view to hide the barcode scanner viewfinder
         // It allows to locate the barcodes on the full screen
         barcodeScannerView.finderViewController.setFinderEnabled(false)
@@ -103,11 +103,11 @@ class AR_MultiScanActivity : AppCompatActivity() {
                 )
             }
         })
+        // @EndTag("AR-MultiScan")
 
         resultView = findViewById(R.id.barcode_recycler_view)
         resultView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         resultView.adapter = resultAdapter
-// END OF IMPORTANT FOR THIS EXAMPLE:
     }
 
     private fun handleSuccess(result: FrameHandlerResult.Success<BarcodeScannerResult?>) {

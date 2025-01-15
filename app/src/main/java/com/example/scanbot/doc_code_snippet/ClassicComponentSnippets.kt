@@ -13,14 +13,17 @@ import io.scanbot.sdk.barcode.ui.BarcodePolygonsView
 import io.scanbot.sdk.barcode.ui.BarcodeScannerView
 
 fun enableBarcodeSelectionOverlaySnippet(barcodeScannerView: BarcodeScannerView) {
+    // @Tag("Enable Barcode Selection Overlay")
     barcodeScannerView.selectionOverlayController.setEnabled(true)
     barcodeScannerView.viewController.apply {
         // This is important for Selection Overlay to work properly
         barcodeScanningInterval = 0
     }
+    // @EndTag("Enable Barcode Selection Overlay")
 }
 
 fun customViewForResultSnippet(barcodeScannerView: BarcodeScannerView, context: Context) {
+    // @Tag("Set up a custom view for the result")
     // Simple result storage to showcase the custom view
     val resultsMap = hashMapOf<String, Long>()
     // Setting a Factory for the Views
@@ -46,6 +49,7 @@ fun customViewForResultSnippet(barcodeScannerView: BarcodeScannerView, context: 
             valueTextView.text = textWithExtension
         }
     })
+    // @EndTag("Set up a custom view for the result")
 }
 
 fun selectionOverlayAppearanceConfigSnippet(
@@ -59,6 +63,7 @@ fun selectionOverlayAppearanceConfigSnippet(
     overlayTextContainerHighlightedColor: Int,
     overlayTextFormat: BarcodeOverlayTextFormat
 ) {
+    // @Tag("Set appearance configuration")
     barcodeScannerView.selectionOverlayController.setBarcodeAppearanceDelegate(object :
         BarcodePolygonsView.BarcodeAppearanceDelegate {
         override fun getPolygonStyle(
@@ -87,4 +92,5 @@ fun selectionOverlayAppearanceConfigSnippet(
             )
         }
     })
+    // @EndTag("Set appearance configuration")
 }

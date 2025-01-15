@@ -33,6 +33,7 @@ class SingleBarcodeActivity : AppCompatActivity() {
             // barcodeFormats = (listOf(BarcodeFormat.QR_CODE))
         )
 
+        // @Tag("Scanning single barcode")
         barcodeScannerView.apply {
             initCamera(CameraUiSettings(true))
             initScanningBehavior(barcodeScanner, { result ->
@@ -55,6 +56,7 @@ class SingleBarcodeActivity : AppCompatActivity() {
                 }
             })
         }
+        // @EndTag("Scanning single barcode")
     }
 
     private fun handleSuccess(result: FrameHandlerResult.Success<BarcodeScannerResult?>) {

@@ -64,7 +64,7 @@ class MultipleBarcodeActivity : AppCompatActivity() {
             })
         }
 
-// IMPORTANT FOR THIS EXAMPLE:
+        // @Tag("Scanning multiple barcodes")
         // Disable the finder view to hide the barcode scanner viewfinder
         // It allows to locate the barcodes on the full screen
         barcodeScannerView.finderViewController.setFinderEnabled(false)
@@ -74,10 +74,10 @@ class MultipleBarcodeActivity : AppCompatActivity() {
         resultView = findViewById(R.id.barcode_recycler_view)
         resultView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         resultView.adapter = resultAdapter
-// END OF IMPORTANT FOR THIS EXAMPLE:
+        // @EndTag("Scanning multiple barcodes")
     }
 
-// IMPORTANT FOR THIS EXAMPLE:
+    // @Tag("Handle results")
     private fun handleSuccess(result: FrameHandlerResult.Success<BarcodeScannerResult?>) {
         result.value?.let {
             // We need to add the barcode items to the adapter on the main thread
@@ -87,7 +87,7 @@ class MultipleBarcodeActivity : AppCompatActivity() {
             }
         }
     }
-// END OF IMPORTANT FOR THIS EXAMPLE:        
+    // @EndTag("Handle results")
 
     override fun onResume() {
         super.onResume()

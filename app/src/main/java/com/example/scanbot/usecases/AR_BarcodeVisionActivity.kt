@@ -65,7 +65,7 @@ class AR_BarcodeVisionActivity : AppCompatActivity() {
             })
         }
 
-// IMPORTANT FOR THIS EXAMPLE:
+        // @Tag("AR-BarcodeVision")
         // Required for the AR overlay to work faster
         barcodeScannerView.viewController.barcodeScanningInterval = 0
 
@@ -140,7 +140,7 @@ class AR_BarcodeVisionActivity : AppCompatActivity() {
                 }
             }
         })
-// END OF IMPORTANT FOR THIS EXAMPLE
+        // @EndTag("AR-BarcodeVision")
     }
 
     override fun onResume() {

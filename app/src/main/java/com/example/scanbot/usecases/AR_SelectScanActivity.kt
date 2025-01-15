@@ -43,6 +43,7 @@ class AR_SelectScanActivity : AppCompatActivity() {
             // barcodeFormats = (listOf(BarcodeFormat.QR_CODE))
         )
 
+        // @Tag("AR-SelectScan")
         barcodeScannerView.apply {
             initCamera(CameraUiSettings(true))
             initScanningBehavior(barcodeScanner, { result ->
@@ -128,6 +129,7 @@ class AR_SelectScanActivity : AppCompatActivity() {
                         }
                 }
             })
+        // @EndTag("AR-SelectScan")
 
         resultView = findViewById(R.id.barcode_recycler_view)
         resultView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

@@ -65,17 +65,17 @@ class BatchScanningActivity : AppCompatActivity() {
             })
         }
 
-// IMPORTANT FOR THIS EXAMPLE:
+        // @Tag("Batch Scanning")
         // Required for the scanner to be able to detect barcodes one-by-one faster:
         barcodeScannerView.viewController.barcodeScanningInterval = 0
 
         resultView = findViewById(R.id.barcode_recycler_view)
         resultView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         resultView.adapter = resultAdapter
-// END OF IMPORTANT FOR THIS EXAMPLE:
+        // @EndTag("Batch Scanning")
     }
 
-// IMPORTANT FOR THIS EXAMPLE:
+    // @Tag("Handle results")
     private fun handleSuccess(result: FrameHandlerResult.Success<BarcodeScannerResult?>) {
         result.value?.let {
             // We need to add the barcode items to the adapter on the main thread
@@ -85,7 +85,7 @@ class BatchScanningActivity : AppCompatActivity() {
             }
         }
     }
-// END OF IMPORTANT FOR THIS EXAMPLE:       
+    // @EndTag("Handle results")
 
     override fun onResume() {
         super.onResume()

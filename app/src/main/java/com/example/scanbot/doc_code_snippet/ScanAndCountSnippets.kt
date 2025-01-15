@@ -8,6 +8,7 @@ import io.scanbot.sdk.barcode.ui.IBarcodeScanCountViewCallback
 import io.scanbot.sdk.barcode_scanner.ScanbotBarcodeScannerSDK
 
 fun scanAndCountClassicUiSnippet(barcodeCounterView: BarcodeScanAndCountView, context: Context) {
+    // @Tag("Scan And Count Classic UI")
     barcodeCounterView.initCamera()
     val scanbotSDK = ScanbotBarcodeScannerSDK(context)
     val barcodeDetector = scanbotSDK.createBarcodeScanner()
@@ -33,10 +34,13 @@ fun scanAndCountClassicUiSnippet(barcodeCounterView: BarcodeScanAndCountView, co
             }
         }
     )
+    // @EndTag("Scan And Count Classic UI")
 }
 
 fun getCountedBarcodesSnippet(barcodeCounterView: BarcodeScanAndCountView) {
+    // @Tag("Get all scanned barcodes and their count")
     val scannedBarcodes = barcodeCounterView.countedBarcodes
+    // @EndTag("Get all scanned barcodes and their count")
 }
 
 fun appearanceConfigurationSnippet(
@@ -47,6 +51,7 @@ fun appearanceConfigurationSnippet(
     fillColor: Int,
     cornerRadius: Float
 ) {
+    // @Tag("Set appearance configuration")
     barcodeCounterView.counterOverlayController.setBarcodeAppearanceDelegate(object :
         BarcodePolygonsStaticView.BarcodeAppearanceDelegate {
         override fun getPolygonStyle(
@@ -62,4 +67,5 @@ fun appearanceConfigurationSnippet(
             )
         }
     })
+    // @EndTag("Set appearance configuration")
 }
