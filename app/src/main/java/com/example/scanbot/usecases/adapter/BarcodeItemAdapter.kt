@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.scanbot.R
 import io.scanbot.sdk.barcode.BarcodeItem
-import io.scanbot.sdk.barcode.entity.textWithExtension
+import io.scanbot.sdk.barcode.textWithExtension
 
 class BarcodeItemAdapter : RecyclerView.Adapter<BarcodeItemAdapter.BarcodeViewHolder>() {
     private val items: MutableList<BarcodeItem> = mutableListOf()

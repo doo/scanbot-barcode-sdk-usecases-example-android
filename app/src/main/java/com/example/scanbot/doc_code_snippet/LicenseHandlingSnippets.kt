@@ -3,8 +3,13 @@ package com.example.scanbot.doc_code_snippet
 import android.app.Application
 import android.content.Context
 import io.scanbot.sap.IScanbotSDKLicenseErrorHandler
-import io.scanbot.sap.Status
-import io.scanbot.sap.Status.*
+import io.scanbot.sap.Status.StatusFailureAppIDMismatch
+import io.scanbot.sap.Status.StatusFailureCorrupted
+import io.scanbot.sap.Status.StatusFailureExpired
+import io.scanbot.sap.Status.StatusFailureNotSet
+import io.scanbot.sap.Status.StatusFailureWrongOS
+import io.scanbot.sap.Status.StatusOkay
+import io.scanbot.sap.Status.StatusTrial
 import io.scanbot.sdk.barcode_scanner.ScanbotBarcodeScannerSDK
 import io.scanbot.sdk.barcode_scanner.ScanbotBarcodeScannerSDKInitializer
 import io.scanbot.sdk.util.log.LoggerProvider

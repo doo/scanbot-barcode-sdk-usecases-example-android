@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.scanbot.ExampleUtils
 import com.example.scanbot.R
 import com.example.scanbot.usecases.adapter.BarcodeItemAdapter
-import io.scanbot.sdk.barcode.BarcodeFormat
 import io.scanbot.sdk.barcode.BarcodeItem
 import io.scanbot.sdk.barcode.BarcodeScannerResult
 import io.scanbot.sdk.barcode.ui.BarcodeOverlayTextFormat
@@ -38,9 +37,11 @@ class AR_MultiScanActivity : AppCompatActivity() {
         barcodeScannerView = findViewById(R.id.barcode_scanner_view)
 
         val barcodeScanner = ScanbotBarcodeScannerSDK(this).createBarcodeScanner()
-        barcodeScanner.setConfigurations(
-            // Specify the barcode format you want to scan
-            // barcodeFormats = (listOf(BarcodeFormat.QR_CODE))
+        barcodeScanner.setConfiguration(
+            barcodeScanner.copyCurrentConfiguration().apply {
+                // Specify the barcode format you want to scan
+                // setBarcodeFormats(listOf(BarcodeFormat.QR_CODE))
+            }
         )
 
         barcodeScannerView.apply {

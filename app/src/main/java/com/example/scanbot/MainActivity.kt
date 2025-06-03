@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
             ViewType.Option(UseCase.AR_SELECT_SCAN, "AR-SelectScan"),
             ViewType.Option(UseCase.AR_FIND_AND_PICK, "AR-FindAndPick"),
             ViewType.Option(UseCase.AR_SCAN_AND_COUNT, "AR-ScanAndCount"),
-            ViewType.Option(UseCase.AR_BARCODE_VISION, "AR-BarcodeVision"),
             ViewType.Support(),
         )
 

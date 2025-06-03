@@ -69,11 +69,6 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".usecases.AR_BarcodeVisionActivity"
-            android:label="AR-BarcodeVision"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".usecases.DetectionOnTheImageActivity"
             android:label="Detecting Barcodes on Still Images"
             android:parentActivityName=".MainActivity"

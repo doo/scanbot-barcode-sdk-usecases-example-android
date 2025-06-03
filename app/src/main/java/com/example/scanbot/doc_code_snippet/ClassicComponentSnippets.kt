@@ -1,13 +1,6 @@
 package com.example.scanbot.doc_code_snippet
 
-import android.content.Context
-import android.view.LayoutInflater
-import android.view.View
-import android.widget.TextView
-import androidx.core.view.isVisible
-import com.example.scanbot.R
 import io.scanbot.sdk.barcode.BarcodeItem
-import io.scanbot.sdk.barcode.entity.textWithExtension
 import io.scanbot.sdk.barcode.ui.BarcodeOverlayTextFormat
 import io.scanbot.sdk.barcode.ui.BarcodePolygonsView
 import io.scanbot.sdk.barcode.ui.BarcodeScannerView
@@ -20,36 +13,6 @@ fun enableBarcodeSelectionOverlaySnippet(barcodeScannerView: BarcodeScannerView)
         barcodeScanningInterval = 0
     }
     // @EndTag("Enable Barcode Selection Overlay")
-}
-
-fun customViewForResultSnippet(barcodeScannerView: BarcodeScannerView, context: Context) {
-    // @Tag("Set up a custom view for the result")
-    // Simple result storage to showcase the custom view
-    val resultsMap = hashMapOf<String, Long>()
-    // Setting a Factory for the Views
-    barcodeScannerView.selectionOverlayController.setBarcodeItemViewFactory(object :
-        BarcodePolygonsView.BarcodeItemViewFactory {
-        override fun createView(): View {
-            val inflater = LayoutInflater.from(context)
-            return inflater.inflate(R.layout.custom_view_for_ar, barcodeScannerView, false)
-        }
-    })
-    // Setting a binding callback when the View is bound to the corresponding barcode
-    barcodeScannerView.selectionOverlayController.setBarcodeItemViewBinder(object :
-        BarcodePolygonsView.BarcodeItemViewBinder {
-        override fun bindView(view: View, barcodeItem: BarcodeItem, shouldHighlight: Boolean) {
-            val textWithExtension = barcodeItem.textWithExtension
-            if (!resultsMap.containsKey(textWithExtension)) {
-                // TODO: here we emulate loading info from the database/internet
-                resultsMap[textWithExtension] = System.currentTimeMillis() + 2500
-            }
-            val valueTextView = view.findViewById<TextView>(R.id.custom_ar_view_value_text)
-            val resultIsReady = resultsMap[textWithExtension]!! < System.currentTimeMillis()
-            valueTextView.isVisible = resultIsReady
-            valueTextView.text = textWithExtension
-        }
-    })
-    // @EndTag("Set up a custom view for the result")
 }
 
 fun selectionOverlayAppearanceConfigSnippet(
