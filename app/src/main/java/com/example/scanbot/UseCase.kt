@@ -15,7 +15,6 @@ enum class UseCase(val activityClass: KClass<out Activity>) {
     AR_SELECT_SCAN(AR_SelectScanActivity::class),
     AR_FIND_AND_PICK(AR_FindAndPickActivity::class),
     AR_SCAN_AND_COUNT(AR_ScanAndCountActivity::class),
-    AR_BARCODE_VISION(AR_BarcodeVisionActivity::class)
 }
 
 

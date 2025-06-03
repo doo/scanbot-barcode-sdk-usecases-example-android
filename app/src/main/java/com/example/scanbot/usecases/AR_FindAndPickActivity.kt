@@ -29,9 +29,11 @@ class AR_FindAndPickActivity : AppCompatActivity() {
         barcodeScannerView = findViewById(R.id.barcode_scanner_view)
 
         val barcodeScanner = ScanbotBarcodeScannerSDK(this).createBarcodeScanner()
-        barcodeScanner.setConfigurations(
-            // Specify the barcode format you want to scan
-            // barcodeFormats = (listOf(BarcodeFormat.QR_CODE))
+        barcodeScanner.setConfiguration(
+            barcodeScanner.copyCurrentConfiguration().apply {
+                // Specify the barcode format you want to scan
+                // setBarcodeFormats(listOf(BarcodeFormat.QR_CODE))
+            }
         )
 
         barcodeScannerView.apply {

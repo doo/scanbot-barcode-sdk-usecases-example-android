@@ -40,9 +40,11 @@ class DetectionOnTheImageActivity : AppCompatActivity() {
 
         // Create a barcode scanner instance
         val barcodeScanner = scanbotBarcodeScannerSDK.createBarcodeScanner()
-        barcodeScanner.setConfigurations(
-            // Specify the barcode format you want to scan
-            // barcodeFormats = (listOf(BarcodeFormat.QR_CODE))
+        barcodeScanner.setConfiguration(
+            barcodeScanner.copyCurrentConfiguration().apply {
+                // Specify the barcode format you want to scan
+                // setBarcodeFormats(listOf(BarcodeFormat.QR_CODE))
+            }
         )
 
         findViewById<Button>(R.id.import_image_button).setOnClickListener {

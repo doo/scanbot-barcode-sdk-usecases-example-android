@@ -10,7 +10,6 @@ import com.example.scanbot.ExampleUtils
 import com.example.scanbot.R
 import io.scanbot.sdk.barcode.BarcodeItem
 import io.scanbot.sdk.barcode.BarcodeScannerResult
-import io.scanbot.sdk.barcode.entity.BarcodeScanningResult
 import io.scanbot.sdk.barcode.ui.BarcodeScannerView
 import io.scanbot.sdk.barcode.ui.IBarcodeScannerViewCallback
 import io.scanbot.sdk.barcode_scanner.ScanbotBarcodeScannerSDK
@@ -28,9 +27,11 @@ class DistantBarcodeActivity : AppCompatActivity() {
         barcodeScannerView = findViewById(R.id.barcode_scanner_view)
 
         val barcodeScanner = ScanbotBarcodeScannerSDK(this).createBarcodeScanner()
-        barcodeScanner.setConfigurations(
-            // Specify the barcode format you want to scan
-            // barcodeFormats = (listOf(BarcodeFormat.QR_CODE))
+        barcodeScanner.setConfiguration(
+            barcodeScanner.copyCurrentConfiguration().apply {
+                // Specify the barcode format you want to scan
+                // setBarcodeFormats(listOf(BarcodeFormat.QR_CODE))
+            }
         )
 
         barcodeScannerView.apply {

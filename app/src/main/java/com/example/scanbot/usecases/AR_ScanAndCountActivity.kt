@@ -11,9 +11,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.example.scanbot.ExampleUtils
 import com.example.scanbot.R
-import io.scanbot.sdk.barcode.BarcodeFormat
 import io.scanbot.sdk.barcode.BarcodeItem
-import io.scanbot.sdk.barcode.ui.*
+import io.scanbot.sdk.barcode.ui.BarcodeScanAndCountView
+import io.scanbot.sdk.barcode.ui.IBarcodeScanCountViewCallback
 import io.scanbot.sdk.barcode_scanner.ScanbotBarcodeScannerSDK
 
 class AR_ScanAndCountActivity : AppCompatActivity() {
@@ -27,9 +27,11 @@ class AR_ScanAndCountActivity : AppCompatActivity() {
         barcodeScanAndCountView = findViewById(R.id.barcode_scanner_view)
 
         val barcodeScanner = ScanbotBarcodeScannerSDK(this).createBarcodeScanner()
-        barcodeScanner.setConfigurations(
-            // Specify the barcode format you want to scan
-            // barcodeFormats = (listOf(BarcodeFormat.QR_CODE))
+        barcodeScanner.setConfiguration(
+            barcodeScanner.copyCurrentConfiguration().apply {
+                // Specify the barcode format you want to scan
+                // setBarcodeFormats(listOf(BarcodeFormat.QR_CODE))
+            }
         )
 
         val scanAndCountButton = findViewById<Button>(R.id.button_scan_and_count)

@@ -3,16 +3,13 @@ package com.example.scanbot.usecases
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
 import com.example.scanbot.ExampleUtils
 import com.example.scanbot.R
 import io.scanbot.sdk.barcode.BarcodeItem
 import io.scanbot.sdk.barcode.BarcodeScannerResult
-import io.scanbot.sdk.barcode.entity.BarcodeScanningResult
 import io.scanbot.sdk.barcode.ui.BarcodeScannerView
 import io.scanbot.sdk.barcode.ui.IBarcodeScannerViewCallback
 import io.scanbot.sdk.barcode_scanner.ScanbotBarcodeScannerSDK
@@ -30,9 +27,11 @@ class TinyBarcodeActivity : AppCompatActivity() {
         barcodeScannerView = findViewById(R.id.barcode_scanner_view)
 
         val barcodeScanner = ScanbotBarcodeScannerSDK(this).createBarcodeScanner()
-        barcodeScanner.setConfigurations(
-            // Specify the barcode format you want to scan
-            // barcodeFormats = (listOf(BarcodeFormat.QR_CODE))
+        barcodeScanner.setConfiguration(
+            barcodeScanner.copyCurrentConfiguration().apply {
+                // Specify the barcode format you want to scan
+                // setBarcodeFormats(listOf(BarcodeFormat.QR_CODE))
+            }
         )
 
         barcodeScannerView.apply {

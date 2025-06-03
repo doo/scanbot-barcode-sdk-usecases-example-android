@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.scanbot.usecases.ResultDialogFragment
 import io.scanbot.sdk.barcode.BarcodeScannerResult
-import io.scanbot.sdk.barcode.entity.BarcodeScanningResult
 
 object ExampleUtils {
     fun showLicenseExpiredToastAndExit(activity: Activity) {
