@@ -7,6 +7,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.scanbot.usecases.ResultDialogFragment
+import io.scanbot.sdk.barcode.BarcodeScannerResult
 import io.scanbot.sdk.barcode.entity.BarcodeScanningResult
 
 object ExampleUtils {
@@ -19,8 +20,8 @@ object ExampleUtils {
         }
     }
 
-    fun showBarcodeResult(activity: AppCompatActivity, barcodeScanningResult: BarcodeScanningResult, onDismissListener: () -> Unit) {
-        val resultDialogFragment = ResultDialogFragment.newInstance(barcodeScanningResult.barcodeItems.first())
+    fun showBarcodeResult(activity: AppCompatActivity, barcodeScanningResult: BarcodeScannerResult, onDismissListener: () -> Unit) {
+        val resultDialogFragment = ResultDialogFragment.newInstance(barcodeScanningResult.barcodes.first())
         resultDialogFragment.show(activity.supportFragmentManager, "result")
         resultDialogFragment.onDismissListener = {
             onDismissListener()

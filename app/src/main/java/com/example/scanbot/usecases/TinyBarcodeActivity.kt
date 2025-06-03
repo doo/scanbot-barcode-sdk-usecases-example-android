@@ -10,6 +10,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import com.example.scanbot.ExampleUtils
 import com.example.scanbot.R
+import io.scanbot.sdk.barcode.BarcodeItem
+import io.scanbot.sdk.barcode.BarcodeScannerResult
 import io.scanbot.sdk.barcode.entity.BarcodeScanningResult
 import io.scanbot.sdk.barcode.ui.BarcodeScannerView
 import io.scanbot.sdk.barcode.ui.IBarcodeScannerViewCallback
@@ -27,15 +29,15 @@ class TinyBarcodeActivity : AppCompatActivity() {
 
         barcodeScannerView = findViewById(R.id.barcode_scanner_view)
 
-        val barcodeDetector = ScanbotBarcodeScannerSDK(this).createBarcodeDetector()
-        barcodeDetector.modifyConfig {
+        val barcodeScanner = ScanbotBarcodeScannerSDK(this).createBarcodeScanner()
+        barcodeScanner.setConfigurations(
             // Specify the barcode format you want to scan
-            // setBarcodeFormats(listOf(BarcodeFormat.QR_CODE))
-        }
+            // barcodeFormats = (listOf(BarcodeFormat.QR_CODE))
+        )
 
         barcodeScannerView.apply {
             initCamera(CameraUiSettings(true))
-            initDetectionBehavior(barcodeDetector, { result ->
+            initScanningBehavior(barcodeScanner, { result ->
                 if (result is FrameHandlerResult.Success) {
                     handleSuccess(result)
                 } else {
@@ -49,17 +51,21 @@ class TinyBarcodeActivity : AppCompatActivity() {
                 override fun onPictureTaken(image: ByteArray, captureInfo: CaptureInfo) {
                     // we don't need full size pictures in this example
                 }
+
+                override fun onSelectionOverlayBarcodeClicked(barcodeItem: BarcodeItem) {
+                    // handle the barcode item here
+                }
             })
         }
 
-// IMPORTANT FOR THIS EXAMPLE:
+        // @Tag("Scanning tiny barcodes")
         // Lock the focus distance to the minimal possible value to scan tiny barcodes
         // Should be called in onCreate:
         barcodeScannerView.cameraConfiguration.lockMinFocusDistance(true)
-// END OF IMPORTANT FOR THIS EXAMPLE:
+        // @EndTag("Scanning tiny barcodes")
     }
 
-    private fun handleSuccess(result: FrameHandlerResult.Success<BarcodeScanningResult?>) {
+    private fun handleSuccess(result: FrameHandlerResult.Success<BarcodeScannerResult?>) {
         result.value?.let {
             barcodeScannerView.viewController.isFrameProcessingEnabled = false
             runOnUiThread {

@@ -3,13 +3,13 @@ package com.example.scanbot.usecases
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
 import com.example.scanbot.ExampleUtils
 import com.example.scanbot.R
+import io.scanbot.sdk.barcode.BarcodeItem
+import io.scanbot.sdk.barcode.BarcodeScannerResult
 import io.scanbot.sdk.barcode.entity.BarcodeScanningResult
 import io.scanbot.sdk.barcode.ui.BarcodeScannerView
 import io.scanbot.sdk.barcode.ui.IBarcodeScannerViewCallback
@@ -27,15 +27,15 @@ class DistantBarcodeActivity : AppCompatActivity() {
 
         barcodeScannerView = findViewById(R.id.barcode_scanner_view)
 
-        val barcodeDetector = ScanbotBarcodeScannerSDK(this).createBarcodeDetector()
-        barcodeDetector.modifyConfig {
+        val barcodeScanner = ScanbotBarcodeScannerSDK(this).createBarcodeScanner()
+        barcodeScanner.setConfigurations(
             // Specify the barcode format you want to scan
-            // setBarcodeFormats(listOf(BarcodeFormat.QR_CODE))
-        }
+            // barcodeFormats = (listOf(BarcodeFormat.QR_CODE))
+        )
 
         barcodeScannerView.apply {
             initCamera(CameraUiSettings(true))
-            initDetectionBehavior(barcodeDetector, { result ->
+            initScanningBehavior(barcodeScanner, { result ->
                 if (result is FrameHandlerResult.Success) {
                     handleSuccess(result)
                 } else {
@@ -44,20 +44,24 @@ class DistantBarcodeActivity : AppCompatActivity() {
                 false
             }, object : IBarcodeScannerViewCallback {
                 override fun onCameraOpen() {
-// IMPORTANT FOR THIS EXAMPLE:
+                    // @Tag("Scanning distant barcodes")
                     // Set the optical zoom level to 30x to allow scanning barcodes from a distance
                     barcodeScannerView.cameraConfiguration.setPhysicalZoomRatio(30.0f)
-// END OF IMPORTANT FOR THIS EXAMPLE:
+                    // @EndTag("Scanning distant barcodes")
                 }
 
                 override fun onPictureTaken(image: ByteArray, captureInfo: CaptureInfo) {
                     // we don't need full size pictures in this example
                 }
+
+                override fun onSelectionOverlayBarcodeClicked(barcodeItem: BarcodeItem) {
+                    // handle the barcode item here
+                }
             })
         }
     }
 
-    private fun handleSuccess(result: FrameHandlerResult.Success<BarcodeScanningResult?>) {
+    private fun handleSuccess(result: FrameHandlerResult.Success<BarcodeScannerResult?>) {
         result.value?.let {
             barcodeScannerView.viewController.isFrameProcessingEnabled = false
             runOnUiThread {
